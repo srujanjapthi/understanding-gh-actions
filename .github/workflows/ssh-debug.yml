@@ -1,0 +1,16 @@
+
+name: Temporary Ubuntu SSH
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start SSH session
+        uses: owenthereal/action-upterm@v1
