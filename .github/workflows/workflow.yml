@@ -42,7 +42,7 @@ jobs:
           hostname -I
 
           echo "Running processes"
-          top
+          ps aux --sort=-%cpu | head -15
 
           echo "Uptime and load"
           uptime
