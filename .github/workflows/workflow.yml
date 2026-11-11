@@ -14,3 +14,82 @@ jobs:
         run: ls -a
       - name: Execute JS File
         run: node app.js
+  system-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Inspect Runner System
+        run: |
+          echo "======================================"
+          echo "        SYSTEM INFORMATION"
+          echo "======================================"
+
+          echo "--- OS INFORMATION ---"
+          cat /etc/os-release
+          uname -a
+          hostnamectl || true
+
+          echo ""
+          echo "--- USER INFORMATION ---"
+          whoami
+          id
+          echo "HOME: $HOME"
+          echo "PWD: $PWD"
+
+          echo ""
+          echo "--- ARCHITECTURE ---"
+          uname -m
+          dpkg --print-architecture
+
+          echo ""
+          echo "--- CPU INFORMATION ---"
+          lscpu
+
+          echo ""
+          echo "--- MEMORY INFORMATION ---"
+          free -h
+          cat /proc/meminfo
+
+          echo ""
+          echo "--- DISK INFORMATION ---"
+          df -h
+          lsblk
+
+          echo ""
+          echo "--- CPU AND MEMORY USAGE ---"
+          uptime
+          top -b -n 1 | head -20
+
+          echo ""
+          echo "--- NETWORK INFORMATION ---"
+          hostname -I
+          ip addr
+          ip route
+
+          echo ""
+          echo "--- RUNNER INFORMATION ---"
+          echo "Runner Name: $RUNNER_NAME"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Runner Arch: $RUNNER_ARCH"
+          echo "Runner Temp: $RUNNER_TEMP"
+          echo "Runner Tool Cache: $RUNNER_TOOL_CACHE"
+          echo "GitHub Workspace: $GITHUB_WORKSPACE"
+
+          echo ""
+          echo "--- INSTALLED TOOL VERSIONS ---"
+          git --version
+          node --version || true
+          npm --version || true
+          pnpm --version || true
+          java -version 2>&1 || true
+          python3 --version || true
+          docker --version || true
+
+          echo ""
+          echo "--- ENVIRONMENT VARIABLES (SELECTED) ---"
+          env | grep -E '^(CI|GITHUB_|RUNNER_|JAVA_HOME|PATH=)' | sort
+
+          echo ""
+          echo "======================================"
+          echo "       INSPECTION COMPLETED"
+          echo "======================================"
