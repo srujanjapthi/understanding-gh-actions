@@ -1,5 +1,5 @@
 name: My first workflow
-on: [push, workflow_dispatch]
+on: push
 jobs:
   my-first-job:
     runs-on: ubuntu-latest
@@ -16,15 +16,33 @@ jobs:
         run: node app.js
   system-info:
     runs-on: ubuntu-latest
+
     steps:
       - name: Inspect Runner System
         run: |
+          echo "OS information"
           hostnamectl
+
+          echo "CPU information"
           lscpu
+
+          echo "RAM information"
           free -h
+
+          echo "Disk information"
           df -h
+
+          echo "Disk partitions"
           lsblk
+
+          echo "Current user"
           whoami
+
+          echo "IP addresses"
           hostname -I
+
+          echo "Running processes"
           top
+
+          echo "Uptime and load"
           uptime
